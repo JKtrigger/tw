@@ -1,0 +1,92 @@
+﻿<html>
+<head>
+</head>
+<body>
+{% if not auth_ %}
+	{% include "login.html" %}
+
+{% endif %}
+
+{% if not auth_ %}
+	<!--Some thing can be here-->
+{% endif %}
+	
+{% if auth_ %}
+<!--logout-->
+ <form action="/logout" method="post">
+  <button type="submit">logout</button>
+</form> 
+	{% include "profile.html" %}
+<!--ico user-->
+<!--Some code here-->
+
+{% endif %}
+
+<div id = 'BigDady'>
+{% for iterMessage in item  %}
+
+<div class="alert alert-info">
+  <strong>{{ iterMessage.owner }}</strong> {{ iterMessage.body }}
+</div>				
+{%endfor %}
+</div>
+{% if auth_ %}
+	{% include "tools.html" %}
+<!--- tool bars --->
+{% endif %}
+<div id = 'tag_res'></div>
+</body>
+<script>
+// По заданию, я вроде ни ограничен в выборе библеотек , так что я напишу все используя только Js (Без JQUERE)
+document.getElementById('KeepIt').onclick = function() {
+    var msg = document.getElementById('hereID').value
+	<!--Some validate form-->
+	console.log(msg)
+	<!---->
+	document.getElementById("myForm").submit();
+	}
+setInterval(refresh, 1000)
+<!-- Empty Child with out Jquere>
+function refresh(){
+var parent = document.getElementById("BigDady");
+var child = document.querySelectorAll('div.alert');
+var len_child =child.length
+
+var xhr = new XMLHttpRequest();
+xhr.open('post', '../refresh/', false);
+xhr.send();
+if(xhr.status == 200) {
+	for (var i = 0; i < len_child ; i++ ) {parent.removeChild(child[i]);} 
+	parent.innerHTML = xhr.responseText
+}
+//Да я понимаю , что это не совсем "чисто"  , Если надо допишу все заголовки и валидацию
+}
+function findUserOrText(e,y){
+//console.log(e); Например , запретить пробел ,слеш ... 
+console.log(y);
+<!-- if e in  -->
+
+//тут без опеределения , искать буду все 
+
+var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("tag_res").innerHTML = this.responseText;
+    }
+  };
+  xhttp.open("POST", "../Search/", true);
+  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  xhttp.send("findName="+y);
+
+
+}
+
+</script>
+<style>
+strong {
+padding-left:10px ; 
+padding-right:10px;
+
+} 
+</style>
+</html>
