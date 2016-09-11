@@ -45,7 +45,7 @@ document.getElementById('KeepIt').onclick = function() {
 	<!---->
 	document.getElementById("myForm").submit();
 	}
-setInterval(refresh, 1000)
+setInterval(refresh, 5000)
 <!-- Empty Child with out Jquere>
 function refresh(){
 var parent = document.getElementById("BigDady");
@@ -74,7 +74,7 @@ var xhttp = new XMLHttpRequest();
       document.getElementById("tag_res").innerHTML = this.responseText;
     }
   };
-  xhttp.open("POST", "../Search/", true);
+  xhttp.open("POST", "../Search/", false);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhttp.send("findName="+y);
 
