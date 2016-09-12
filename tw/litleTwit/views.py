@@ -9,6 +9,7 @@ from models import Message
 from django.contrib.auth.models import User
 from django.db.models import Q
 # Create your views here.
+# JUST FOR CHANGE COMMIT
 item = Message.objects.all()[:10]
 def login_me(view_func):
     def check(x):
